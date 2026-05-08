@@ -3,21 +3,26 @@ import board
 import busio
 import adafruit_ssd1306
 from PIL import Image, ImageDraw, ImageFont
+from gpiozero import Button
 
+# Setup OLED
 i2c = busio.I2C(board.SCL, board.SDA)
 oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x27)
 font = ImageFont.load_default()
 
-# Use a counter to track which face to show
+# Setup Button on GPIO 17
+button = Button(17)
+
 counter = 0
 
 while True:
-    # Create the blank canvas
     image = Image.new("1", (128, 64))
     draw = ImageDraw.Draw(image)
 
-    # Determine the text based on the counter value
-    if counter == 0:
+    # Check if the button is pressed (Feeding time!)
+    if button.is_pressed:
+        face = "(  ~O~ ) NOM"
+    elif counter == 0:
         face = "( ^_^ )"
     elif counter == 1:
         face = "( O_o )"
@@ -28,14 +33,15 @@ while True:
     else:
         face = "( -.- )zZ"
 
-    # Draw the face and update the screen
     draw.text((35, 25), face, font=font, fill=255)
     oled.image(image)
     oled.show()
 
-    # Increase counter and reset it if it goes past 4
-    counter = counter + 1
-    if counter > 4:
-        counter = 0
-
-    time.sleep(2)
+    # Only cycle to the next face if we aren't currently feeding
+    if button.is_pressed == False:
+        counter = counter + 1
+        if counter > 4:
+            counter = 0
+    
+    # Short delay to keep the button responsive
+    time.sleep(0.2)
