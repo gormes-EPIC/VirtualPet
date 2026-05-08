@@ -1,37 +1,38 @@
 import time
 import board
-import busio
 import adafruit_character_lcd.character_lcd_i2c as character_lcd
 
-# Setup I2C and LCD (16 columns, 2 rows, address 0x27)
-i2c = busio.I2C(board.SCL, board.SDA)
-lcd = character_lcd.Character_LCD_I2C(i2c, 16, 2, address=0x27)
+# 1. Setup the LCD dimensions
+lcd_columns = 16
+lcd_rows = 2
 
-counter = 0
+# 2. Initialize the I2C bus and the LCD
+i2c = board.I2C()
+lcd = character_lcd.Character_LCD_I2C(i2c, lcd_columns, lcd_rows)
 
+# 3. Run the infinite loop with sequential commands
 while True:
-    # Clear the screen for the new face
+    # Face 1
     lcd.clear()
+    lcd.message = "    ( ^_^ )     \n     Happy!     "
+    time.sleep(2)
     
-    # Logic to pick the face based on the counter
-    if counter == 0:
-        face = "( ^_^ )"
-    elif counter == 1:
-        face = "( O_o )"
-    elif counter == 2:
-        face = "( -_- )"
-    elif counter == 3:
-        face = "( >_< )"
-    else:
-        face = "( -.- )zZ"
-
-    # Display the face
-    lcd.message = face
-
-    # Increment counter and reset if it hits the end
-    counter = counter + 1
-    if counter > 4:
-        counter = 0
-            
-    # Wait 2 seconds before the next face
+    # Face 2
+    lcd.clear()
+    lcd.message = "    ( O_o )     \n      Huh?      "
+    time.sleep(2)
+    
+    # Face 3
+    lcd.clear()
+    lcd.message = "    ( -_- )     \n      Sigh      "
+    time.sleep(2)
+    
+    # Face 4
+    lcd.clear()
+    lcd.message = "    ( >_< )     \n     Yikes!     "
+    time.sleep(2)
+    
+    # Face 5
+    lcd.clear()
+    lcd.message = "   ( -.- )zZ    \n    Sleeping    "
     time.sleep(2)
