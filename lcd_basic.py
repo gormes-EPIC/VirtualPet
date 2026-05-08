@@ -8,7 +8,7 @@ lcd_rows = 2
 
 # 2. Initialize the I2C bus and the LCD
 i2c = board.I2C()
-lcd = character_lcd.Character_LCD_I2C(i2c, lcd_columns, lcd_rows)
+lcd = character_lcd.Character_LCD_I2C(i2c, lcd_columns, lcd_rows, address=0x27)
 
 # 3. Run the infinite loop with sequential commands
 while True:
