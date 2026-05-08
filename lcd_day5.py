@@ -14,7 +14,7 @@ last_feed_time = time.time()
 # This prevents the LCD from constantly clearing and flickering!
 current_mood = "" 
 
-hunger = 100
+hunger = 50
 
 # 3. Run the infinite loop
 while True:
