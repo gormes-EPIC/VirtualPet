@@ -27,7 +27,7 @@ while True:
         
         last_feed_time = time.time()  # Reset our stopwatch!
         current_mood = "eating"       # Force the screen to update after eating
-        hunger = 500
+        hunger = 50
 
     # --- STATE 2: THE BUTTON IS NOT PRESSED ---
     else:
