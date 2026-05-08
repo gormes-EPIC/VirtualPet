@@ -1,0 +1,1 @@
+pip3 install RPLCD smbus2 gpiozero
