@@ -1,1 +1,1 @@
-pip3 install RPLCD smbus2 gpiozero
+pip3 install RPLCD smbus2 gpiozero adafruit-circuitpython-charlcd

@@ -1,22 +1,19 @@
 import time
 import board
 import busio
-import adafruit_ssd1306
-from PIL import Image, ImageDraw, ImageFont
+import adafruit_character_lcd.character_lcd_i2c as character_lcd
 
+# Setup I2C and LCD (16 columns, 2 rows, address 0x27)
 i2c = busio.I2C(board.SCL, board.SDA)
-oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x27)
-font = ImageFont.load_default()
+lcd = character_lcd.Character_LCD_I2C(i2c, 16, 2, address=0x27)
 
-# Use a counter to track which face to show
 counter = 0
 
 while True:
-    # Create the blank canvas
-    image = Image.new("1", (128, 64))
-    draw = ImageDraw.Draw(image)
-
-    # Determine the text based on the counter value
+    # Clear the screen for the new face
+    lcd.clear()
+    
+    # Logic to pick the face based on the counter
     if counter == 0:
         face = "( ^_^ )"
     elif counter == 1:
@@ -28,14 +25,13 @@ while True:
     else:
         face = "( -.- )zZ"
 
-    # Draw the face and update the screen
-    draw.text((35, 25), face, font=font, fill=255)
-    oled.image(image)
-    oled.show()
+    # Display the face
+    lcd.message = face
 
-    # Increase counter and reset it if it goes past 4
+    # Increment counter and reset if it hits the end
     counter = counter + 1
     if counter > 4:
         counter = 0
-
+            
+    # Wait 2 seconds before the next face
     time.sleep(2)
