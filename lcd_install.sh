@@ -1,1 +1,1 @@
-pip install adafruit-circuitpython-charlcd
+pip install RPLCD smbus2
