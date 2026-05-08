@@ -14,6 +14,8 @@ last_feed_time = time.time()
 # This prevents the LCD from constantly clearing and flickering!
 current_mood = "" 
 
+hunger = 500
+
 # 3. Run the infinite loop
 while True:
     
@@ -25,12 +27,15 @@ while True:
         
         last_feed_time = time.time()  # Reset our stopwatch!
         current_mood = "eating"       # Force the screen to update after eating
-        
+        hunger = 500
+
     # --- STATE 2: THE BUTTON IS NOT PRESSED ---
     else:
         # Calculate how many seconds have passed since the last meal
         seconds_idle = time.time() - last_feed_time
         
+        hunger -= 1
+
         # If it has been more than 10 seconds -> Sleep
         if seconds_idle > 10:
             if current_mood != "sleeping":
@@ -39,6 +44,12 @@ while True:
                 current_mood = "sleeping" # Remember that we are now sleeping
                 
         # If it has been less than 10 seconds -> Happy
+        elif hunger <= 0:
+            if current_mood != "hungry":
+                lcd.clear()
+                lcd.write_string("    ( O_o )     \r\n    Hungry!     ")
+                current_mood = "hungry"    # Remember that we are now happy
+    
         else:
             if current_mood != "happy":
                 lcd.clear()
