@@ -8,17 +8,16 @@ button = Button(17)
 
 # 2. Run the game loop
 while True:
-    # Step A: Give the instruction
-    lcd.clear()
-    lcd.write_string("Press the button\r\n   Waiting...   ")
+
+    # If the button is pressed, then we can clear the screen and display our message
+    if button.is_pressed:
+        lcd.clear()
+        lcd.write_string("    BOOM!!!     \r\n   Great job!   ")
+    # If the button is not pressed, then we wait
+    else: 
+        lcd.clear()
+        lcd.write_string("Press the button\r\n   Waiting...   ")
     
-    # Step B: Pause the ENTIRE program until the physical button is pressed
-    button.wait_for_press()
-    
-    # Step C: The reaction! 
-    # This only runs AFTER the button is pressed
-    lcd.clear()
-    lcd.write_string("    BOOM!!!     \r\n   Great job!   ")
     
     # Wait 3 seconds so they can read the success message before it restarts
     time.sleep(3)
