@@ -1,6 +1,6 @@
 import time
 from RPLCD.i2c import CharLCD
-from gpiozero import Button
+from gpiozero import Button, RGBLED
 
 # 1. Initialize the LCD and the Button
 lcd = CharLCD('PCF8574', 0x27, cols=16, rows=2)
