@@ -16,7 +16,7 @@ current_mood = ""
 
 hunger = 50
 
-led = RGBLED(red=9, green=10, blue=11)
+led = RGBLED(red=5, green=6, blue=13)
 
 # 3. Run the infinite loop
 while True:
